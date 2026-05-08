@@ -85,9 +85,8 @@ jobs:
             weeks.append(days)
 
           out = {"total": total, "weeks": weeks, "updatedAt": end.isoformat()}
-          os.makedirs("public", exist_ok=True)
-          with open("public/contributions.json", "w") as f:
-            json.dump(out, f)
+          with open("contributions.json", "w") as f:
+           json.dump(out, f)
 
           print(f"Done. Total: {total}")
           EOF
@@ -97,6 +96,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/contributions.json
+          git add contributions.json
           git diff --cached --quiet && echo "No changes" || git commit -m "chore: update contributions [skip ci]"
           git push
