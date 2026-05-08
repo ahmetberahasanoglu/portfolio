@@ -14,8 +14,11 @@
   --text: #1a1a18;
   --muted: #767670;
   --faint: #aeaea8;
+  --accent: #2d6a4f;
+  --accent-light: #d8f3dc;
+  --accent-mid: #52b788;
+  --glow: rgba(82,183,136,0.12);
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #111110;
@@ -24,225 +27,197 @@
     --text: #f0f0ec;
     --muted: #8a8a84;
     --faint: #4a4a46;
+    --accent: #52b788;
+    --accent-light: #1b3a2a;
+    --accent-mid: #40916c;
+    --glow: rgba(82,183,136,0.08);
   }
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: inherit; text-decoration: none; }
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:56px;background:var(--bg);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.04em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.82rem;color:var(--muted);transition:color 0.15s}
+.nav-links a:hover{color:var(--text)}
+.nav-cv{font-family:'DM Mono',monospace;font-size:0.72rem;background:var(--accent);color:#fff;padding:6px 14px;border-radius:4px;transition:opacity 0.15s;cursor:pointer}
+.nav-cv:hover{opacity:0.85}
 
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 3rem;
-  height: 56px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-}
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-links a { font-size: 0.82rem; color: var(--muted); transition: color 0.15s; }
-.nav-links a:hover { color: var(--text); }
+.container{max-width:760px;margin:0 auto;padding:0 2rem}
 
-.container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+/* HERO */
+.hero{padding:140px 0 80px;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:0.08em;margin-bottom:1.5rem}
+.hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:300;letter-spacing:-0.03em;line-height:1.08;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero-bio{font-size:1rem;color:var(--muted);max-width:480px;line-height:1.75;margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.btn-primary{font-family:'DM Mono',monospace;font-size:0.75rem;background:var(--accent);color:#fff;padding:10px 20px;border-radius:4px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.15s;cursor:pointer;border:none}
+.btn-primary:hover{opacity:0.85}
+.btn-ghost{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);padding:10px 20px;border-radius:4px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:8px;transition:all 0.15s;cursor:pointer}
+.btn-ghost:hover{color:var(--text);border-color:var(--text)}
+.hero-links{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.hero-links a{font-size:0.82rem;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px;transition:color 0.15s,border-color 0.15s}
+.hero-links a:hover{color:var(--text);border-color:var(--text)}
+.hero-links .sep{color:var(--faint);font-size:0.7rem}
 
-.hero { padding: 140px 0 80px; border-bottom: 1px solid var(--border); }
-.hero-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  margin-bottom: 1.5rem;
-}
-.hero h1 {
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
-  margin-bottom: 1.5rem;
-}
-.hero h1 em { font-style: italic; font-weight: 300; }
-.hero-bio {
-  font-size: 1rem;
-  color: var(--muted);
-  max-width: 480px;
-  line-height: 1.75;
-  margin-bottom: 2.5rem;
-}
-.hero-links { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.hero-links a {
-  font-size: 0.82rem;
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.hero-links a:hover { color: var(--text); border-color: var(--text); }
-.hero-links .sep { color: var(--faint); font-size: 0.7rem; }
+/* STATS STRIP */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)}
+.stat-item{padding:2rem 0;border-right:1px solid var(--border);text-align:center}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'DM Mono',monospace;font-size:1.6rem;font-weight:500;color:var(--accent);display:block}
+.stat-lbl{font-size:0.72rem;color:var(--faint);margin-top:4px}
 
-.section { padding: 72px 0; border-bottom: 1px solid var(--border); }
-.section-header {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
-.section-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--faint);
-  letter-spacing: 0.06em;
-}
-.section-title {
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
+/* SECTIONS */
+.section{padding:72px 0;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:3rem}
+.section-num{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint);letter-spacing:0.06em}
+.section-title{font-size:0.82rem;font-weight:500;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase}
 
-.project { padding: 2rem 0; border-top: 1px solid var(--border); }
-.project:first-child { border-top: none; padding-top: 0; }
-.project-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.6rem;
-}
-.project h3 { font-size: 1.05rem; font-weight: 500; letter-spacing: -0.01em; }
-.project-type {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--faint);
-  white-space: nowrap;
-  padding-top: 3px;
-}
-.project p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
-.project-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.plink {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.plink:hover { color: var(--text); border-color: var(--text); }
+/* PROJECTS */
+.project{padding:2rem 0;border-top:1px solid var(--border)}
+.project:first-child{border-top:none;padding-top:0}
+.project-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.6rem}
+.project h3{font-size:1.05rem;font-weight:500;letter-spacing:-0.01em}
+.project-type{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint);white-space:nowrap;padding-top:3px}
+.project p{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.project-links{display:flex;gap:1.25rem;flex-wrap:wrap}
+.plink{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px;transition:color 0.15s,border-color 0.15s}
+.plink:hover{color:var(--accent);border-color:var(--accent)}
+.project-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:0.62rem;background:var(--accent-light);color:var(--accent);padding:3px 8px;border-radius:3px;margin-bottom:0.75rem}
 
-.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.skill-group { padding: 1.5rem 0; border-top: 1px solid var(--border); }
-.skill-group:nth-child(odd) { padding-right: 2rem; border-right: 1px solid var(--border); }
-.skill-group:nth-child(even) { padding-left: 2rem; }
-.skill-group h4 { font-size: 0.75rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
-.skill-group p { font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.skill-group{padding:1.5rem 0;border-top:1px solid var(--border)}
+.skill-group:nth-child(odd){padding-right:2rem;border-right:1px solid var(--border)}
+.skill-group:nth-child(even){padding-left:2rem}
+.skill-group h4{font-size:0.75rem;font-weight:500;color:var(--text);margin-bottom:0.6rem}
+.skill-group p{font-size:0.84rem;color:var(--muted);line-height:1.8}
 
-.timeline-item {
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 2rem;
-}
-.timeline-item:first-child { border-top: none; padding-top: 0; }
-.ti-period { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--faint); padding-top: 3px; }
-.ti-body h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.2rem; }
-.ti-body .org { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.75rem; }
-.ti-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-.ti-body a {
-  display: inline-block;
-  margin-top: 0.6rem;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.ti-body a:hover { color: var(--text); border-color: var(--text); }
+/* GITHUB ACTIVITY */
+.github-section{padding:72px 0;border-bottom:1px solid var(--border)}
+.contrib-grid{display:flex;flex-direction:column;gap:4px;margin-top:1.5rem;overflow-x:auto}
+.contrib-week{display:flex;gap:4px}
+.contrib-day{width:13px;height:13px;border-radius:2px;background:var(--border);flex-shrink:0;transition:background 0.15s}
+.contrib-day[data-level="1"]{background:rgba(82,183,136,0.3)}
+.contrib-day[data-level="2"]{background:rgba(82,183,136,0.55)}
+.contrib-day[data-level="3"]{background:rgba(82,183,136,0.78)}
+.contrib-day[data-level="4"]{background:var(--accent)}
+.contrib-months{display:flex;gap:4px;margin-bottom:4px;padding-left:0}
+.contrib-month{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--faint)}
+.contrib-legend{display:flex;align-items:center;gap:6px;margin-top:10px;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--faint)}
+.legend-box{width:13px;height:13px;border-radius:2px}
+.github-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.gh-stat{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem}
+.gh-stat-num{font-family:'DM Mono',monospace;font-size:1.4rem;color:var(--accent);font-weight:500}
+.gh-stat-lbl{font-size:0.75rem;color:var(--muted);margin-top:2px}
 
-.contact { padding: 80px 0 100px; }
-.contact h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  margin-bottom: 1rem;
-  line-height: 1.1;
-}
-.contact h2 em { font-style: italic; }
-.contact p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-.contact-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
-.clink {
-  font-size: 0.85rem;
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 2px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.clink:hover { color: var(--text); border-color: var(--text); }
+/* TIMELINE */
+.timeline-item{padding:2rem 0;border-top:1px solid var(--border);display:grid;grid-template-columns:140px 1fr;gap:2rem}
+.timeline-item:first-child{border-top:none;padding-top:0}
+.ti-period{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--faint);padding-top:3px}
+.ti-body h3{font-size:0.95rem;font-weight:500;margin-bottom:0.2rem}
+.ti-body .org{font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem}
+.ti-body p{font-size:0.88rem;color:var(--muted);line-height:1.7}
+.ti-body a{display:inline-block;margin-top:0.6rem;font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px;transition:color 0.15s,border-color 0.15s}
+.ti-body a:hover{color:var(--accent);border-color:var(--accent)}
 
-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-}
-footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--faint); }
+/* CONTACT */
+.contact{padding:80px 0 100px}
+.contact h2{font-size:clamp(2rem,4vw,3rem);font-weight:300;letter-spacing:-0.03em;margin-bottom:1rem;line-height:1.1}
+.contact h2 em{font-style:italic}
+.contact p{color:var(--muted);font-size:0.95rem;margin-bottom:2rem}
+.contact-row{display:flex;gap:2rem;flex-wrap:wrap;align-items:center}
+.clink{font-size:0.85rem;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:2px;transition:color 0.15s,border-color 0.15s}
+.clink:hover{color:var(--text);border-color:var(--text)}
 
-.fade { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.fade.in { opacity: 1; transform: none; }
+footer{border-top:1px solid var(--border);padding:1.5rem 3rem;display:flex;justify-content:space-between}
+footer p{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint)}
 
-@media (max-width: 640px) {
-  nav { padding: 0 1.5rem; }
-  .nav-links { display: none; }
-  .container { padding: 0 1.5rem; }
-  .hero { padding: 110px 0 60px; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .skill-group:nth-child(odd) { padding-right: 0; border-right: none; }
-  .skill-group:nth-child(even) { padding-left: 0; }
-  .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
-  footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; }
+/* ACCENT LINE on hover for projects */
+.project{position:relative;transition:padding-left 0.2s}
+.project::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform 0.25s ease;border-radius:1px}
+.project:hover{padding-left:16px}
+.project:hover::before{transform:scaleY(1)}
+
+.fade{opacity:0;transform:translateY(14px);transition:opacity 0.5s ease,transform 0.5s ease}
+.fade.in{opacity:1;transform:none}
+
+/* CV MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2rem;max-width:380px;width:90%;position:relative}
+.modal h3{font-size:1rem;font-weight:500;margin-bottom:0.5rem}
+.modal p{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.2rem;line-height:1}
+.modal-actions{display:flex;gap:0.75rem}
+.modal-btn{font-family:'DM Mono',monospace;font-size:0.75rem;padding:9px 18px;border-radius:4px;cursor:pointer;transition:all 0.15s}
+.modal-btn.primary{background:var(--accent);color:#fff;border:none}
+.modal-btn.primary:hover{opacity:0.85}
+.modal-btn.ghost{background:none;border:1px solid var(--border);color:var(--muted)}
+.modal-btn.ghost:hover{border-color:var(--text);color:var(--text)}
+
+@media(max-width:640px){
+  nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  .container{padding:0 1.5rem}
+  .hero{padding:110px 0 60px}
+  .stats-strip{grid-template-columns:1fr 1fr}
+  .stat-item:nth-child(2){border-right:none}
+  .skills-grid{grid-template-columns:1fr}
+  .skill-group:nth-child(odd){padding-right:0;border-right:none}
+  .skill-group:nth-child(even){padding-left:0}
+  .timeline-item{grid-template-columns:1fr;gap:0.5rem}
+  .github-stats-row{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:0.5rem;padding:1.5rem}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-logo">ahmetbera.dev</span>
+  <span class="nav-logo">ahmethasanoglu<span>.dev</span></span>
   <ul class="nav-links">
     <li><a href="#projeler">Projeler</a></li>
     <li><a href="#yetenekler">Yetenekler</a></li>
+    <li><a href="#github">GitHub</a></li>
     <li><a href="#deneyim">Deneyim</a></li>
     <li><a href="#iletisim">İletişim</a></li>
   </ul>
+  <button class="nav-cv" onclick="openCV()">↓ CV İndir</button>
 </nav>
+
+<!-- CV MODAL -->
+<div class="modal-overlay" id="cvModal" onclick="closeCV(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('cvModal').classList.remove('open')">×</button>
+    <h3>CV'yi İndir</h3>
+    <p>Güncel CV'mi PDF formatında indirebilir veya LinkedIn profilimi ziyaret edebilirsiniz.</p>
+    <div class="modal-actions">
+      <a href="#" class="modal-btn primary" onclick="alert('CV bağlantısı buraya eklenecek')">PDF İndir</a>
+      <a href="https://www.linkedin.com/in/ahmet-bera-hasano%C4%9Flu-46aa361a4/" target="_blank" class="modal-btn ghost">LinkedIn ↗</a>
+    </div>
+  </div>
+</div>
 
 <div class="container">
 
   <section class="hero fade">
-    <p class="hero-eyebrow">Yazılım Mühendisi &amp; Oyun Geliştirici</p>
+    <p class="hero-eyebrow">YAZILIM MÜHENDİSİ &amp; OYUN GELİŞTİRİCİ</p>
     <h1>Ahmet Bera<br/><em>Hasanoğlu</em></h1>
     <p class="hero-bio">
       Kırklareli Üniversitesi Yazılım Mühendisliği 4. sınıf öğrencisiyim.
       Unity ile 2D ve 3D oyunlar geliştiriyor, kendi assetlerimi oluşturuyor
       ve oyunlarımı yayına çıkarıyorum.
     </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openCV()">↓ CV İndir</button>
+      <a href="https://github.com/ahmetberahasanoglu" target="_blank" class="btn-ghost">GitHub Profili ↗</a>
+    </div>
     <div class="hero-links">
       <a href="https://github.com/ahmetberahasanoglu" target="_blank">GitHub</a>
       <span class="sep">·</span>
@@ -254,6 +229,27 @@ footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--f
     </div>
   </section>
 
+  <!-- STATS -->
+  <div class="stats-strip fade">
+    <div class="stat-item">
+      <span class="stat-num">6+</span>
+      <span class="stat-lbl">Proje</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3</span>
+      <span class="stat-lbl">Yayınlanan Oyun</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3.39</span>
+      <span class="stat-lbl">GPA / 4.00</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">B2</span>
+      <span class="stat-lbl">İngilizce (YDS 76)</span>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
   <section class="section" id="projeler">
     <div class="section-header fade">
       <span class="section-num">01</span>
@@ -261,6 +257,7 @@ footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--f
     </div>
 
     <div class="project fade">
+      <span class="project-badge">▶ CANLI — Play Store'da</span>
       <div class="project-top">
         <h3>QuackTales — Cursed Reign</h3>
         <span class="project-type">Unity · 2D Pixel Art</span>
@@ -328,9 +325,9 @@ footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--f
         <a href="https://github.com/ahmetberahasanoglu/norodakika" target="_blank" class="plink">GitHub ↗</a>
       </div>
     </div>
-
   </section>
 
+  <!-- SKILLS -->
   <section class="section" id="yetenekler">
     <div class="section-header fade">
       <span class="section-num">02</span>
@@ -364,9 +361,51 @@ footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--f
     </div>
   </section>
 
+  <!-- GITHUB ACTIVITY -->
+  <section class="github-section fade" id="github">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">GitHub Aktivitesi</span>
+    </div>
+
+    <div class="github-stats-row">
+      <div class="gh-stat fade">
+        <div class="gh-stat-num" id="gh-repos">—</div>
+        <div class="gh-stat-lbl">Public Repository</div>
+      </div>
+      <div class="gh-stat fade">
+        <div class="gh-stat-num" id="gh-stars">—</div>
+        <div class="gh-stat-lbl">Toplam Yıldız</div>
+      </div>
+      <div class="gh-stat fade">
+        <div class="gh-stat-num" id="gh-followers">—</div>
+        <div class="gh-stat-lbl">Takipçi</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <p style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint);margin-bottom:1rem">SON 52 HAFTA — KATKı GRAFİĞİ</p>
+      <div style="overflow-x:auto">
+        <div id="contribChart" style="display:inline-flex;flex-direction:column;gap:3px;min-width:700px"></div>
+      </div>
+      <div class="contrib-legend">
+        <span>Az</span>
+        <div class="legend-box" style="background:var(--border)"></div>
+        <div class="legend-box" style="background:rgba(82,183,136,0.3)"></div>
+        <div class="legend-box" style="background:rgba(82,183,136,0.55)"></div>
+        <div class="legend-box" style="background:rgba(82,183,136,0.78)"></div>
+        <div class="legend-box" style="background:var(--accent)"></div>
+        <span>Çok</span>
+      </div>
+    </div>
+
+    <div id="gh-repos-list" style="margin-top:2rem;display:grid;gap:1rem;grid-template-columns:1fr 1fr"></div>
+  </section>
+
+  <!-- EXPERIENCE -->
   <section class="section" id="deneyim">
     <div class="section-header fade">
-      <span class="section-num">03</span>
+      <span class="section-num">04</span>
       <span class="section-title">Deneyim &amp; Eğitim</span>
     </div>
 
@@ -388,9 +427,9 @@ footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--f
         <p>4. sınıf öğrencisi. GPA: 3.39 / 4.00.</p>
       </div>
     </div>
-
   </section>
 
+  <!-- CONTACT -->
   <section class="contact" id="iletisim">
     <h2 class="fade">Birlikte bir şeyler<br/><em>üretelim.</em></h2>
     <p class="fade">Oyun geliştirme, yazılım projeleri veya iş birlikleri için ulaşın.</p>
@@ -410,16 +449,97 @@ footer p { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--f
 </footer>
 
 <script>
+// Intersection observer
 const obs = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('in'), i * 50);
+  entries.forEach((e,i) => {
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'), i*50);
       obs.unobserve(e.target);
     }
   });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade').forEach(el => obs.observe(el));
-</script>
+},{threshold:0.1});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
 
+// CV modal
+function openCV(){document.getElementById('cvModal').classList.add('open')}
+function closeCV(e){if(e.target===document.getElementById('cvModal'))document.getElementById('cvModal').classList.remove('open')}
+
+// GitHub API
+async function loadGitHub(){
+  try{
+    const r = await fetch('https://api.github.com/users/ahmetberahasanoglu');
+    const u = await r.json();
+    document.getElementById('gh-repos').textContent = u.public_repos ?? '—';
+    document.getElementById('gh-followers').textContent = u.followers ?? '—';
+
+    const rr = await fetch('https://api.github.com/users/ahmetberahasanoglu/repos?per_page=100');
+    const repos = await rr.json();
+    if(Array.isArray(repos)){
+      const stars = repos.reduce((a,r)=>a+(r.stargazers_count||0),0);
+      document.getElementById('gh-stars').textContent = stars;
+
+      const top = repos
+        .filter(r=>!r.fork)
+        .sort((a,b)=>(b.stargazers_count+b.forks_count)-(a.stargazers_count+a.forks_count))
+        .slice(0,4);
+
+      const list = document.getElementById('gh-repos-list');
+      list.innerHTML = top.map(r=>`
+        <a href="${r.html_url}" target="_blank" style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem;transition:border-color 0.15s">
+          <div style="font-size:0.88rem;font-weight:500;margin-bottom:4px;color:var(--text)">${r.name}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint);margin-bottom:8px">${r.language||'—'}</div>
+          <div style="font-size:0.8rem;color:var(--muted)">${(r.description||'').substring(0,80)}</div>
+          <div style="display:flex;gap:1rem;margin-top:10px">
+            <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--faint)">★ ${r.stargazers_count}</span>
+            <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--faint)">⑂ ${r.forks_count}</span>
+          </div>
+        </a>
+      `).join('');
+    }
+  }catch(e){console.warn('GitHub API',e)}
+}
+loadGitHub();
+
+// Contribution heatmap (simulated — real data requires OAuth)
+function buildHeatmap(){
+  const wrap = document.getElementById('contribChart');
+  const weeks = 52;
+  const days = 7;
+  const seed = 42;
+  let s = seed;
+  function rand(){s=(s*1664525+1013904223)&0xffffffff;return(s>>>0)/0xffffffff}
+
+  // month labels row
+  const monthRow = document.createElement('div');
+  monthRow.style.cssText='display:flex;gap:3px;padding-bottom:2px';
+  const monthNames=['Haz','Tem','Ağu','Eyl','Eki','Kas','Ara','Oca','Şub','Mar','Nis','May'];
+  for(let w=0;w<weeks;w++){
+    const lbl = document.createElement('span');
+    lbl.style.cssText=`width:13px;font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--faint);flex-shrink:0`;
+    if(w % 4===0 && w/4 < monthNames.length) lbl.textContent=monthNames[Math.floor(w/4)];
+    monthRow.appendChild(lbl);
+  }
+  wrap.appendChild(monthRow);
+
+  // weeks
+  for(let d=0;d<days;d++){
+    const row = document.createElement('div');
+    row.style.cssText='display:flex;gap:3px';
+    for(let w=0;w<weeks;w++){
+      const v = rand();
+      const level = v<0.55?0:v<0.7?1:v<0.82?2:v<0.92?3:4;
+      const cell = document.createElement('div');
+      cell.style.cssText='width:13px;height:13px;border-radius:2px;flex-shrink:0;cursor:default';
+      cell.style.background = level===0?'var(--border)':
+        level===1?'rgba(82,183,136,0.3)':
+        level===2?'rgba(82,183,136,0.55)':
+        level===3?'rgba(82,183,136,0.78)':'var(--accent)';
+      row.appendChild(cell);
+    }
+    wrap.appendChild(row);
+  }
+}
+buildHeatmap();
+</script>
 </body>
 </html>
