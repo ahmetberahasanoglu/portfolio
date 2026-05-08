@@ -188,21 +188,10 @@ footer p{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint)}
     <li><a href="#deneyim">Deneyim</a></li>
     <li><a href="#iletisim">İletişim</a></li>
   </ul>
-  <button class="nav-cv" onclick="openCV()">↓ CV İndir</button>
+  <a href="CVG.pdf" download class="nav-cv" style="text-decoration: none;">↓ CV İndir</a>
 </nav>
 
-<!-- CV MODAL -->
-<div class="modal-overlay" id="cvModal" onclick="closeCV(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('cvModal').classList.remove('open')">×</button>
-    <h3>CV'yi İndir</h3>
-    <p>Güncel CV'mi PDF formatında indirebilir veya LinkedIn profilimi ziyaret edebilirsiniz.</p>
-    <div class="modal-actions">
-      <a href="#" class="modal-btn primary" onclick="alert('CV bağlantısı buraya eklenecek')">PDF İndir</a>
-      <a href="https://www.linkedin.com/in/ahmet-bera-hasano%C4%9Flu-46aa361a4/" target="_blank" class="modal-btn ghost">LinkedIn ↗</a>
-    </div>
-  </div>
-</div>
+
 
 <div class="container">
 
@@ -215,7 +204,7 @@ footer p{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--faint)}
       ve oyunlarımı yayına çıkarıyorum.
     </p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="openCV()">↓ CV İndir</button>
+      <a href="Ahmet_Bera_Hasanoglu_CV.pdf" download class="btn-primary" style="text-decoration: none;">↓ CV İndir</a>
       <a href="https://github.com/ahmetberahasanoglu" target="_blank" class="btn-ghost">GitHub Profili ↗</a>
     </div>
     <div class="hero-links">
