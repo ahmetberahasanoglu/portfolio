@@ -516,10 +516,7 @@ async function buildHeatmap() {
   let total = null;
 
   try {
-    const res = await fetch(
-      'https://ahmetberahasanoglu.github.io/portfolio/contributions.json'
-      // ^ bunu kendi GitHub Pages URL'inle değiştir
-    );
+   const res = await fetch('./contributions.json');
     if (!res.ok) throw new Error('fetch failed');
     const data = await res.json();
     weeks = data.weeks;
