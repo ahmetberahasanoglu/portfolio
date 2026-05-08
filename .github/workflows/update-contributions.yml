@@ -1,33 +1,102 @@
-name: Update GitHub Contributions
+# .github/workflows/fetch-contributions.yml
+# Bu dosyayı portfolio reponun .github/workflows/ klasörüne koy
+
+name: Fetch GitHub Contributions
 
 on:
   schedule:
-    - cron: "0 */12 * * *" # Günde 2 kez (12 saatte bir) otomatik çalışır
-  workflow_dispatch: # İstediğin zaman manuel tetikleyebilmen için buton ekler
+    - cron: '0 2 * * *'   # Her gün saat 02:00 UTC'de çalışır
+  workflow_dispatch:        # Manuel tetikleme için
 
 jobs:
-  fetch-and-commit:
+  fetch:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Dosyayı kaydedebilmesi için bota yetki veriyoruz
-    
+      contents: write       # JSON dosyasını repoya push edebilmek için
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch GitHub Contributions Data
+      - name: Fetch contributions via GraphQL
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          # GitHub GraphQL API kullanarak sadece kendi verilerini çekiyoruz
-          QUERY='{"query": "query { user(login: \"ahmetberahasanoglu\") { contributionsCollection { contributionCalendar { weeks { contributionDays { contributionCount date } } } } } }"}'
-          curl -H "Authorization: bearer ${{ secrets.GITHUB_TOKEN }}" \
-               -X POST \
-               -d "$QUERY" \
-               https://api.github.com/graphql > contributions.json
+          cat <<'EOF' > fetch.py
+          import urllib.request
+          import json
+          import os
+          from datetime import datetime, timedelta, timezone
 
-      - name: Commit and Push changes
+          token = os.environ["GH_TOKEN"]
+          username = "ahmetberahasanoglu"
+
+          # Son 52 haftanın başlangıç tarihi
+          end   = datetime.now(timezone.utc)
+          start = end - timedelta(weeks=52)
+
+          query = """
+          query($login: String!, $from: DateTime!, $to: DateTime!) {
+            user(login: $login) {
+              contributionsCollection(from: $from, to: $to) {
+                contributionCalendar {
+                  totalContributions
+                  weeks {
+                    contributionDays {
+                      date
+                      contributionCount
+                    }
+                  }
+                }
+              }
+            }
+          }
+          """
+
+          payload = json.dumps({
+            "query": query,
+            "variables": {
+              "login": username,
+              "from": start.isoformat(),
+              "to":   end.isoformat()
+            }
+          }).encode()
+
+          req = urllib.request.Request(
+            "https://api.github.com/graphql",
+            data=payload,
+            headers={
+              "Authorization": f"Bearer {token}",
+              "Content-Type": "application/json"
+            }
+          )
+
+          with urllib.request.urlopen(req) as res:
+            data = json.load(res)
+
+          cal = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+          total = cal["totalContributions"]
+          weeks = []
+          for w in cal["weeks"]:
+            days = [
+              {"date": d["date"], "count": d["contributionCount"]}
+              for d in w["contributionDays"]
+            ]
+            weeks.append(days)
+
+          out = {"total": total, "weeks": weeks, "updatedAt": end.isoformat()}
+          os.makedirs("public", exist_ok=True)
+          with open("public/contributions.json", "w") as f:
+            json.dump(out, f)
+
+          print(f"Done. Total: {total}")
+          EOF
+          python3 fetch.py
+
+      - name: Commit & push JSON
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add contributions.json
-          git commit -m "chore: update contributions heatmap [skip ci]" || true
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/contributions.json
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore: update contributions [skip ci]"
           git push
